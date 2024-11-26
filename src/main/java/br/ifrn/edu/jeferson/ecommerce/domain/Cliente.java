@@ -18,7 +18,10 @@ public class Cliente {
     private Long id;
     private String nome;
     private String email;
+
+    @Column(unique = true)
     private String cpf;
+
     private String telefone;
 
     @OneToOne(mappedBy = "cliente")
