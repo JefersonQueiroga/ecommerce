@@ -15,29 +15,41 @@ public class JwtTokenUtil {
     @Value("${jwt.secret:defaultsecretkeydefaultsecretkey}")
     private String secret;
 
-    @Value("${jwt.expiration:86400000}") // 1 dia em milissegundos
-    private Long expiration;
+    @Value("${jwt.expiration:900000}") // 15 minutos
+    private Long accessTokenExpiration;
+
+    @Value("${jwt.refresh-expiration:604800000}") // 7 dias
+    private Long refreshTokenExpiration;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateAccessToken(UserDetails userDetails) {
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
+    }
+
+    public String generateRefreshToken(UserDetails userDetails) {
+        return Jwts.builder()
+                .setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpiration))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
+    }
+
+    public String getUsernameFromToken(String token) {
+        return parseClaims(token).getSubject();
     }
 
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = getUsernameFromToken(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
-
-    public String getUsernameFromToken(String token) {
-        return parseClaims(token).getSubject();
     }
 
     private boolean isTokenExpired(String token) {
@@ -53,3 +65,4 @@ public class JwtTokenUtil {
                 .getBody();
     }
 }
+

@@ -12,7 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableMethodSecurity // habilita o uso de @PreAuthorize
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
@@ -25,11 +25,10 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        // Configurações de segurança:
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll() // rota de autenticação pública
+                        .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api-docs").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -40,3 +39,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
