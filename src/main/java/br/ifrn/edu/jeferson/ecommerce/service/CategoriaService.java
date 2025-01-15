@@ -1,8 +1,8 @@
 package br.ifrn.edu.jeferson.ecommerce.service;
 
 import br.ifrn.edu.jeferson.ecommerce.domain.Categoria;
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaRequestDTO;
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaResponseDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaRequestDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaResponseDTO;
 import br.ifrn.edu.jeferson.ecommerce.exception.BusinessException;
 import br.ifrn.edu.jeferson.ecommerce.exception.ResourceNotFoundException;
 import br.ifrn.edu.jeferson.ecommerce.mapper.CategoriaMapper;
@@ -10,7 +10,6 @@ import br.ifrn.edu.jeferson.ecommerce.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

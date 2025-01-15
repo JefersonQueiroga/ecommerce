@@ -1,7 +1,7 @@
 package br.ifrn.edu.jeferson.ecommerce.controller;
 
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaRequestDTO;
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaResponseDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaRequestDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaResponseDTO;
 import br.ifrn.edu.jeferson.ecommerce.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

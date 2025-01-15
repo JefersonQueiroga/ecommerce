@@ -1,8 +1,8 @@
 package br.ifrn.edu.jeferson.ecommerce.mapper;
 
 import br.ifrn.edu.jeferson.ecommerce.domain.Categoria;
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaRequestDTO;
-import br.ifrn.edu.jeferson.ecommerce.domain.dtos.CategoriaResponseDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaRequestDTO;
+import br.ifrn.edu.jeferson.ecommerce.domain.dtos.Categoria.CategoriaResponseDTO;
 import org.mapstruct.*;
 
 import java.util.List;
