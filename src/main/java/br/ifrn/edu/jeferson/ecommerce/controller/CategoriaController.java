@@ -28,7 +28,6 @@ public class CategoriaController {
 
     @Operation(summary = "Listar uma nova categoria")
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<CategoriaResponseDTO>> listar() {
         return ResponseEntity.ok(categoriaService.lista());
     }
