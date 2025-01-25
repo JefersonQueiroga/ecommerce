@@ -31,7 +31,6 @@ public class ClienteController {
     @Operation(summary = "Criar um novo cliente", description = "Cria um novo cliente.")
     @PostMapping
     public ResponseEntity<ClienteResponseDTO> salvar(@Valid @RequestBody ClienteRequestDTO clienteDto) {
-        System.out.println("Payload recebido: " + clienteDto);
         return ResponseEntity.ok( clienteService.salvar(clienteDto) );
     }
 
