@@ -13,6 +13,9 @@ public class KeycloakConfig {
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
 
+    @Value("${keycloak.client-secret}")
+    private String clientSecret;
+
     @Bean
     public Keycloak keycloakAdmin() {
         // Remove /realms/ecommerce da URL do issuer
@@ -22,7 +25,7 @@ public class KeycloakConfig {
                 .serverUrl(serverUrl)
                 .realm("ecommerce")
                 .clientId("backend-service") // seu client específico para o backend
-                .clientSecret("NxYiiZbPjKja3vpSX9XPWyhb6ndpajnV")
+                .clientSecret(clientSecret)
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
                 .build();
     }

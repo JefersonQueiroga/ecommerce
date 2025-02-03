@@ -1,0 +1,45 @@
+# Nome da aplicação
+spring.application.name=ecommerce
+
+# Configurações do Banco de Dados
+spring.datasource.url=jdbc:postgresql://localhost:5432/your_database_name
+spring.datasource.username=your_database_username
+spring.datasource.password=your_database_password
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# Configurações do Swagger
+springdoc.swagger-ui.path=/api-docs
+springdoc.swagger-ui.operationsSorter=method
+springdoc.swagger-ui.disable-swagger-default-url=true
+
+# Configurações JPA/Hibernate
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# Configurações de Log
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+
+# AWS Configuration (LocalStack)
+aws.endpoint=http://localhost:4566
+aws.region=your_aws_region
+aws.accessKeyId=your_aws_access_key
+aws.secretKey=your_aws_secret_key
+aws.s3.bucket=your_bucket_name
+
+# Configuração Flyway
+spring.flyway.enabled=true
+spring.flyway.locations=classpath:db/migration
+spring.flyway.baseline-on-migrate=true
+spring.flyway.table=flyway_schema_history
+logging.level.org.flywaydb=DEBUG
+
+# JWT (Gere uma chave secreta forte para produção)
+jwt.secret=your_jwt_secret_key
+jwt.expiration=86400000
+
+# Keycloak Configuration
+spring.security.oauth2.resourceserver.jwt.issuer-uri=https://your-keycloak-domain/realms/your-realm
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://your-keycloak-domain/realms/your-realm/protocol/openid-connect/certs
+keycloak.client-secret=your_client_secret
