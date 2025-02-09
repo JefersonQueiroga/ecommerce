@@ -45,7 +45,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           envs: DOCKER_USERNAME,DB_USERNAME,DB_PASSWORD
           script: |
-            # Criar diretório se não existir
             mkdir -p ~/app
             
             # Parar containers existentes
