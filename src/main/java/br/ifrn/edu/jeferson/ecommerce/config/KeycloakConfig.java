@@ -16,17 +16,21 @@ public class KeycloakConfig {
     @Value("${keycloak.client-secret}")
     private String clientSecret;
 
+    @Value("${keycloak.client-id}")
+    private String clientId;
+
     @Bean
-    public Keycloak keycloakAdmin() {
+    public Keycloak keycloak() {
         // Remove /realms/ecommerce da URL do issuer
         String serverUrl = issuerUri.substring(0, issuerUri.indexOf("/realms"));
 
         return KeycloakBuilder.builder()
                 .serverUrl(serverUrl)
                 .realm("ecommerce")
-                .clientId("backend-service") // seu client específico para o backend
+                .clientId(clientId)
                 .clientSecret(clientSecret)
                 .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
+                .scope("openid")
                 .build();
     }
 }

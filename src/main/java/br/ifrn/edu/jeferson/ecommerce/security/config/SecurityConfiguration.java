@@ -1,5 +1,6 @@
 package br.ifrn.edu.jeferson.ecommerce.security.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -25,6 +26,10 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfiguration {
+
+    @Value("${keycloak.client-id}")
+    private String clientId;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -55,20 +60,21 @@ public class SecurityConfiguration {
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(jwt -> {
-            Map<String, Object> realmAccess = jwt.getClaimAsMap("realm_access");
-            if (realmAccess == null || !realmAccess.containsKey("roles")) {
-                return List.of();
+            // Pega roles do resource_access.spring-boot-app
+            Map<String, Object> resourceAccess = jwt.getClaimAsMap("resource_access");
+            if (resourceAccess != null) {
+                @SuppressWarnings("unchecked")
+                Map<String, Object> clientResource = (Map<String, Object>) resourceAccess.get(clientId);
+                if (clientResource != null && clientResource.containsKey("roles")) {
+                    @SuppressWarnings("unchecked")
+                    List<String> roles = (List<String>) clientResource.get("roles");
+                    return roles.stream()
+                            .map(SimpleGrantedAuthority::new)
+                            .collect(Collectors.toList());
+                }
             }
-
-            @SuppressWarnings("unchecked")
-            List<String> roles = (List<String>) realmAccess.get("roles");
-
-            return roles.stream()
-                    .map(roleName -> "ROLE_" + roleName)
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
+            return List.of();
         });
-
         return converter;
     }
 
